@@ -1,0 +1,139 @@
+#define R 2
+#define G 4
+#define B 3
+#define button 7
+#define maximum 8
+
+int press = 0;
+int notPress = 0;
+int cycle = 0;
+
+void black()
+{
+  digitalWrite(R, LOW);
+  digitalWrite(G, LOW);
+  digitalWrite(B, LOW);
+}
+
+void red()
+{
+  digitalWrite(R, HIGH);
+  digitalWrite(G, LOW);
+  digitalWrite(B, LOW);
+}
+
+void green()
+{
+  digitalWrite(R, LOW);
+  digitalWrite(G, HIGH);
+  digitalWrite(B, LOW);
+}
+
+void blue()
+{
+  digitalWrite(R, LOW);
+  digitalWrite(G, LOW);
+  digitalWrite(B, HIGH);
+}
+
+void yellow()
+{
+  digitalWrite(R, HIGH);
+  digitalWrite(G, HIGH);
+  digitalWrite(B, LOW);
+}
+
+void magenta()
+{
+  digitalWrite(R, HIGH);
+  digitalWrite(G, LOW);
+  digitalWrite(B, HIGH);
+}
+
+void cyan()
+{
+  digitalWrite(R, LOW);
+  digitalWrite(G, HIGH);
+  digitalWrite(B, HIGH);
+}
+
+void white()
+{
+  digitalWrite(R, HIGH);
+  digitalWrite(G, HIGH);
+  digitalWrite(B, HIGH);
+}
+
+void change()
+{
+  if(cycle == 0)
+  {
+    white();
+  }
+  else if(cycle == 1)
+  {
+    red();
+  }
+  else if(cycle == 2)
+  {
+    green();
+  }
+  else if(cycle == 3)
+  {
+    blue();
+  }
+  else if(cycle == 4)
+  {
+    yellow();
+  }
+  else if(cycle == 5)
+  {
+    magenta();
+  }
+  else if(cycle == 6)
+  {
+    cyan();
+  }
+  else
+  {
+    black();
+  }
+  
+  cycle++;
+    
+  if(cycle == maximum)
+  {
+    cycle = 0;
+  }
+}
+void check()
+{
+  if(digitalRead(button) == HIGH)
+  {
+    press = 1;
+    notPress = 0;
+  }
+  else
+  {
+    notPress = 1;
+  }
+  
+  if((press == 1) && (notPress == 1))
+  {
+    press = 0;
+    notPress = 0;
+    change();
+  }
+}
+  void setup()
+  {
+    pinMode(R, OUTPUT);
+    pinMode(G, OUTPUT);
+    pinMode(B, OUTPUT);
+    pinMode(button, INPUT);
+  }
+  
+  void loop()
+  {
+    check();
+  }
